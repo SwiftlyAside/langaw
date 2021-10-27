@@ -23,7 +23,7 @@ class Fly {
   void update(double t) {
     if (isDead) {
       flyRect = flyRect.translate(0, game.tileSize * 12 * t);
-      if (flyRect.top > game.gameSize.y) {
+      if (flyRect.top > game.screenSize.height) {
         isOffScreen = true;
       }
     }

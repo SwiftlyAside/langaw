@@ -6,7 +6,7 @@ import 'package:flame/input.dart';
 import 'package:langaw/components/fly.dart';
 
 class LangawGame extends FlameGame with TapDetector {
-  late Vector2 gameSize;
+  late Rect screenSize;
   late double tileSize;
   late List<Fly> flies;
   late Random rnd;
@@ -20,14 +20,14 @@ class LangawGame extends FlameGame with TapDetector {
   }
 
   void spawnFly() {
-    double x = rnd.nextDouble() * (gameSize.x - tileSize);
-    double y = rnd.nextDouble() * (gameSize.y - tileSize);
+    double x = rnd.nextDouble() * (screenSize.width - tileSize);
+    double y = rnd.nextDouble() * (screenSize.height - tileSize);
     flies.add(Fly(this, x, y));
   }
 
   @override
   void render(Canvas canvas) {
-    Rect bgRect = Rect.fromLTWH(0, 0, gameSize.x, gameSize.y);
+    Rect bgRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
     Paint bgPaint = Paint();
     bgPaint.color = const Color(0xff576574);
     canvas.drawRect(bgRect, bgPaint);
@@ -49,8 +49,8 @@ class LangawGame extends FlameGame with TapDetector {
 
   @override
   void onGameResize(Vector2 canvasSize) {
-    gameSize = canvasSize;
-    tileSize = gameSize.x / 9;
+    screenSize = canvasSize.toRect();
+    tileSize = screenSize.width / 9;
     super.onGameResize(canvasSize);
   }
 
