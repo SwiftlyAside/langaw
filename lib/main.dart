@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:langaw/langaw_game.dart';
 
-void main() {
+void main() async {
   final game = LangawGame();
   runApp(GameWidget(game: game));
 
-  Flame.images.loadAll([
+  await Flame.images.loadAll([
     'bg/backyard.png',
     'flies/agile-fly-1.png',
     'flies/agile-fly-2.png',

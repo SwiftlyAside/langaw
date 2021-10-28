@@ -1,16 +1,18 @@
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
-import 'package:flame/flame.dart';
 import 'package:langaw/langaw_game.dart';
 
 class Backyard {
   late final LangawGame game;
-  late Sprite bgSprite;
+  Sprite? bgSprite;
   late Rect bgRect;
 
   Backyard(this.game) {
-    final image = Flame.images.fromCache('bg/backyard.png');
-    bgSprite = Sprite(image);
+    initialize();
+  }
+
+  void initialize() async {
+    bgSprite = await Sprite.load('bg/backyard.png');
     bgRect = Rect.fromLTWH(
       0,
       game.screenSize.height - (game.tileSize * 23),
@@ -19,7 +21,9 @@ class Backyard {
     );
   }
 
-  void render(Canvas c) {}
+  void render(Canvas c) {
+    bgSprite?.renderRect(c, bgRect);
+  }
 
   void update(double t) {}
 }
