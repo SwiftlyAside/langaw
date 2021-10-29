@@ -8,6 +8,9 @@ import 'package:langaw/components/drooler_fly.dart';
 import 'package:langaw/components/house_fly.dart';
 import 'package:langaw/components/hungry_fly.dart';
 import 'package:langaw/components/macho_fly.dart';
+import 'package:langaw/components/start_button.dart';
+import 'package:langaw/view.dart';
+import 'package:langaw/views/home_view.dart';
 
 import 'components/backyard.dart';
 import 'components/fly.dart';
@@ -18,6 +21,9 @@ class LangawGame extends FlameGame with TapDetector {
   late Backyard background;
   late List<Fly> flies;
   late Random rnd;
+  late HomeView homeView;
+  late StartButton startButton;
+  View activeView = View.home;
 
   @override
   Future<void>? onLoad() {
@@ -25,6 +31,8 @@ class LangawGame extends FlameGame with TapDetector {
     rnd = Random();
 
     background = Backyard(this);
+    homeView = HomeView(this);
+    startButton = StartButton(this);
     spawnFly();
     return super.onLoad();
   }
@@ -57,6 +65,14 @@ class LangawGame extends FlameGame with TapDetector {
 
     for (var fly in flies) {
       fly.render(canvas);
+    }
+
+    if (activeView == View.home) {
+      homeView.render(canvas);
+    }
+
+    if (activeView == View.home || activeView == View.lost) {
+      startButton.render(canvas);
     }
     super.render(canvas);
   }
